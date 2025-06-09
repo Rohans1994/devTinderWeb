@@ -35,7 +35,7 @@ const Feed = () => {
   return (
     <div className="flex justify-center mx-auto py-6">
       {feedData.length === 0 ? (
-        <div>No users to show.</div>
+        <div className="text-gray-500 text-2xl">No Feed to show</div>
       ) : (
         <div>
           <UserCard user={feedData[0]} />

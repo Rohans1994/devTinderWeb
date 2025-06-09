@@ -10,7 +10,6 @@ const Connections = () => {
       const response = await axios.get(`${BASE_URL}/user/connections`, {
         withCredentials: true,
       });
-      console.log("Connections fetched successfully:", response.data.data);
       setConnections(response.data.data);
     } catch (error) {
       console.error("Error fetching connections:", error);
@@ -20,6 +19,14 @@ const Connections = () => {
   useEffect(() => {
     getConnections();
   }, []);
+
+  if (!connections || connections.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center mx-auto py-6">
+        <p className="text-lg font-semibold">No Connections Made Till Now</p>
+      </div>
+    );
+  }
   return (
     <div className="flex flex-col items-center justify-center mx-auto py-6">
       <p className="text-lg font-semibold">My Connections</p>
