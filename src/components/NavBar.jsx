@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 import { clearUser } from "../utils/userSlice";
+import { clearFeed } from "../utils/feedSlice";
 
 const NavBar = () => {
   const user = useSelector((store) => store.user);
@@ -19,6 +20,7 @@ const NavBar = () => {
         }
       );
       dispatch(clearUser());
+      dispatch(clearFeed());
       navigate("/login");
     } catch (error) {
       console.error("Logout failed:", error);
@@ -66,6 +68,16 @@ const NavBar = () => {
             <li>
               <Link to={"/"} className="justify-between">
                 Feed
+              </Link>
+            </li>
+            <li>
+              <Link to={"/connections"} className="justify-between">
+                Connections
+              </Link>
+            </li>
+            <li>
+              <Link to={"/requests"} className="justify-between">
+                Requests
               </Link>
             </li>
             <li>
