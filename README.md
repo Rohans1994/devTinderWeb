@@ -65,4 +65,30 @@
         - sudo systemctl enable nginx
         - Copy code from dist(build files) to /var/www/html/
         - sudo scp -r dist/* /var/www/html/
-        - Enable port :80 of your instance
+        - Enable port :80 of your instance from the security group of the AWS instance
+    - Backend
+        - updated DB password if required
+        - mpm install
+        - npm run start
+        - allowed ec2 instance public IP on mongodb server
+        - Enable port :3000 of your instance from the security group of the AWS instance
+        - npm intsall pm2 -g
+        - pm2 start npm --name "devTinder-backend" -- start
+        - pm2 logs
+        - pm2 list, pm2 flush <name> , pm2 stop <name>, pm2 delete <name>
+        - Goto nginx config - /etc/nginx/sites-available/default
+        - Edit the server name and add location proxy pass to redirect /api to port 3000
+        - restart nginx - sudo systemctl restart nginx
+        - Modify the BASEURL in frontend project to "/api"
+
+## Nginx Config updates
+
+    - server_name 15.207.248.213;
+    - location /api/ {
+            proxy_pass http://localhost:3000/;  # Pass the request to the Node.js app
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection 'upgrade';
+            proxy_set_header Host $host;
+            proxy_cache_bypass $http_upgrade;
+        }
