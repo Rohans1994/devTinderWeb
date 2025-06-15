@@ -3,9 +3,10 @@ import React, { useState } from "react";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { clearRequest } from "../utils/requestsSlice";
+import { Link } from "react-router-dom";
 
 const ConnectionCard = (params) => {
-  const { firstName, lastName, imageUrl, aboutUs } = params.user;
+  const { firstName, lastName, imageUrl, aboutUs, _id } = params.user;
   const requestStatus = params.request || false;
   const requestId = params.id || null;
   const [showToast, setShowToast] = useState(false);
@@ -58,6 +59,13 @@ const ConnectionCard = (params) => {
             </div>
           )}
         </div>
+        {!requestStatus && (
+          <div className="flex items-center mx-4">
+            <Link to={`/chat/${_id}/${firstName}`}>
+              <button className="btn bg-blue-300 rounded-full">Chat</button>
+            </Link>
+          </div>
+        )}
       </div>
       {showToast && (
         <div className="toast toast-center toast-top">
